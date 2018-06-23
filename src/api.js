@@ -1,42 +1,37 @@
 'use strict';
 
 import express from 'express';
+import animals from '../models/animals.js';
 const router = express.Router();
 
-// import modelFinder from '../middleware/models.js';
-// router.param('model', modelFinder);
-
-import animalSchema from '../models/animals';
-
-router.get('/api/v1/:model', (req, res, next) => {
-  req.animalSchema.find()
-    .then(data => sendJSON(res, data))
-    .catch(next);
-});
-
-router.put('/api/v1/:model', (req, res) => {
-
-  
-})
-router.get('/api/v1/:model/:id', (req, res, next) => {
-  req.model.findById(req.params.id)
-    .then(data => sendJSON(res, data))
-    .catch(next);
-});
-
-router.post('/api/v1/:model', (req, res, next) => {
-  let record = new req.model(req.body);
-  record.save()
-    .then(data => sendJSON(res, data))
-    .catch(next);
-});
-
-let sendJSON = (res, data) => {
+let sendJSON = (res,data) => {
   res.statusCode = 200;
-  res.statusMessage = 'Good';
+  res.statusMessage = 'OK';
   res.setHeader('Content-Type', 'application/json');
-  res.write(JSON.stringify(data));
+  res.write( JSON.stringify(data) );
   res.end();
 };
 
-export default router
+router.get('/pig', (req, res) => {
+  res.send('oink')
+})
+
+router.get('/api/v1/animals', (req, res) => {
+  animals
+    .find()
+    .then(data => res.send(data))
+    .catch(res.send(err));
+});
+
+router.post('/api/v1/animals', (req, res) => {
+
+  let animal = new Animals(req.body)
+  console.log(req.body)
+  animal.save()
+    .then(data => sendJSON(res, data))
+    .catch(res.send(err));
+})
+
+
+
+export default router;
