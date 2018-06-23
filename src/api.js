@@ -1,5 +1,4 @@
 'use strict';
-
 import express from 'express';
 import animals from '../models/animals.js';
 const router = express.Router();
@@ -12,9 +11,9 @@ let sendJSON = (res,data) => {
   res.end();
 };
 
-router.get('/pig', (req, res) => {
-  res.send('oink')
-})
+// router.get('/pig', (req, res) => {
+//   res.send('oink')
+// })
 
 router.get('/api/v1/animals', (req, res) => {
   animals
