@@ -5,7 +5,7 @@ import morgan from 'morgan';
 import cors from 'cors';
 
 
-import router from './src/lib/api.js';
+import router from './src/api.js';
 import errorHandler from './middleware/error.js';
 import notFound from './middleware/404.js';
 
@@ -22,7 +22,6 @@ app.use(express.urlencoded({
   extended: true
 }));
 
-import api from './lib/src/api.js';
 app.use(router);
 
 app.use(notFound);
