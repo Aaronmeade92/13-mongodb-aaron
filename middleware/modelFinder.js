@@ -1,6 +1,6 @@
 'use strict';
 
-import requireAll from 'require-directory';
+import requireAll from 'require-dir';
 const models = requireAll('../models');
 
 export default (req, res, next) => {
