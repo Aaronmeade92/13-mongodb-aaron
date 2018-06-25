@@ -10,4 +10,4 @@ const animalSchema = mongoose.Schema({
   eatsHumans: Boolean,
 });
 
-export default mongoose.model('animals', animalSchema);
+export default mongoose.model('Animals', animalSchema);

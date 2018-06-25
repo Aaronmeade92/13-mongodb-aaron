@@ -1,6 +1,6 @@
 'use strict';
 import express from 'express';
-import animals from '../models/animals.js';
+import Animals from '../models/animals.js';
 const router = express.Router();
 
 let sendJSON = (res,data) => {
@@ -16,10 +16,10 @@ let sendJSON = (res,data) => {
 // })
 
 router.get('/api/v1/animals', (req, res) => {
-  animals
+  Animals
     .find()
-    .then(data => res.send(data))
-    .catch(res.send(err));
+    .then(data => sendJSON(res, data))
+    .catch(err => res.send(err));
 });
 
 router.post('/api/v1/animals', (req, res) => {
@@ -28,9 +28,14 @@ router.post('/api/v1/animals', (req, res) => {
   console.log(req.body)
   animal.save()
     .then(data => sendJSON(res, data))
-    .catch(res.send(err));
+    .catch(err => res.send(err));
 })
 
+router.put('/api/v1/animals', (req, res) => {
+
+  Animals.findByIdAndUpdate()
+
+})
 
 
 export default router;
