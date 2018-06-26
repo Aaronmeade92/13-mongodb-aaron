@@ -44,15 +44,60 @@ describe('Schema Module', () => {
       .post(API_URL)
       .send(sharkObj)
       .then(results => {
-        console.log(results.text);
         try {
           const newAnimal = JSON.parse(results.text);
-          console.log(newAnimal);
-          expect(newAnimal.name).toBe(shark.name);
+          expect(newAnimal.name).toBe(sharkObj.name);
         } catch (err) {
           fail(err);
         }
-        
-    }).catch(err => fail(err))
+
+      }).catch(err => fail(err))
   });
+
+  it('updates an ID with the info of a new animal', () => {
+
+    const sharkObj = {
+      name: 'Shark',
+      numberOfLegs: 4,
+      hasFur: false,
+      eatsHumans: true,
+    };
+    const goatObj = {
+      name: 'Goat',
+      numberOfLegs: 4,
+      hasFur: true,
+      eatsHumans: false,
+    };
+
+    return mockRequest
+      .post(API_URL)
+      .send(sharkObj)
+      .then(results => {
+        let id = JSON.parse(results.text)._id;
+        console.log(id)
+        return mockRequest
+          .put(`${API_URL}/${id}`)
+          .send(goatObj)
+          .then(results => {
+            expect(JSON.parse(results.text).name).toBe('Goat');
+          })
+      }).catch(err => fail(err));
+  })
+
+  it('should delete when given an id', () => {
+
+    const sharkObj = {
+      name: 'Shark',
+      numberOfLegs: 4,
+      hasFur: false,
+      eatsHumans: true,
+    };
+    return mockRequest
+      .post(API_URL)
+      .send(sharkObj)
+      .then(results => {
+        
+
+      }).catch(err => fail(err))
+  })
 });

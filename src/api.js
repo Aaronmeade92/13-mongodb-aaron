@@ -25,15 +25,21 @@ router.get('/api/v1/animals', (req, res) => {
 router.post('/api/v1/animals', (req, res) => {
 
   let animal = new Animals(req.body)
-  console.log(req.body)
   animal.save()
     .then(data => sendJSON(res, data))
     .catch(err => res.send(err));
 })
 
-router.put('/api/v1/animals', (req, res) => {
+router.put('/api/v1/animals/:id', (req, res) => {
 
-  Animals.findByIdAndUpdate()
+  // Animals.find({_id:req.params.id}).then(animal => animal.update({...}))
+  Animals.findByIdAndUpdate(
+    req.params.id,
+    req.body,
+    {new: true},
+  ).then((data) => {
+    sendJSON(res, data);
+  }).catch(err => res.send(err));
 
 })
 
